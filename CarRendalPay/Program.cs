@@ -1,5 +1,6 @@
 ﻿using CarRendalPay.Entities;
-using System.Globalization; 
+using System.Globalization;
+using CarRendalPay.Services; 
 
 namespace CarRendalPay
 {
@@ -20,21 +21,22 @@ namespace CarRendalPay
             Console.Write("Return (dd/MM/yyyy hh:mm:ss):  ");
             DateTime finifh = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
 
+            Console.Write("Enter price per hour: ");
+            double hour = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+            Console.Write("Enter price per day: ");
+            double day = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
             // instaciamente do objeto CarRenatl 
 
-            CarRendal carRendal = new CarRendal(start, finifh, new Vehicle(model)); 
+            CarRendal carRendal = new CarRendal(start, finifh, new Vehicle(model));
 
+            RentalService rentalService = new RentalService(hour, day);
 
+            rentalService.ProcessoInvoce(carRendal);
 
-
-            Console.Write("Enter price per hour: ");
-
-            Console.Write("Enter price per day: "); 
-
-            Console.WriteLine("INVOICE");
-            Console.WriteLine(); 
-    
-            // saida de dados 
+            Console.WriteLine("INVOCE:");
+            Console.WriteLine(carRendal.Invoice);
         }
     }
 }
