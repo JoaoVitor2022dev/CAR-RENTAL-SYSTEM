@@ -31,7 +31,7 @@ namespace CarRendalPay
 
             CarRendal carRendal = new CarRendal(start, finifh, new Vehicle(model));
 
-            RentalService rentalService = new RentalService(hour, day);
+            RentalService rentalService = new RentalService(hour, day, new BrazilTaxService());
 
             rentalService.ProcessoInvoce(carRendal);
 

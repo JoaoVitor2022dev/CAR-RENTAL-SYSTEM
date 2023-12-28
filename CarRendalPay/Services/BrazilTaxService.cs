@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CarRendalPay.Services
 {
-    internal class BrazilTaxService
+    internal class BrazilTaxService : ITaxService
     {
         public double Tax(double amount)
         {

@@ -7,12 +7,13 @@ namespace CarRendalPay.Services
         public double PricePerHour { get; private set; }
         public double PricePerDay { get; private set; }
 
-        private BrazilTaxService _brazilTaxService = new BrazilTaxService();
+        private ITaxService _taxService; 
         
-        public RentalService(double pricePerHour, double pricePerDay)
+        public RentalService(double pricePerHour, double pricePerDay, ITaxService taxServece)
         {
             PricePerHour = pricePerHour;
             PricePerDay = pricePerDay;
+            _taxService = taxServece; 
         }
 
         public void ProcessoInvoce(CarRendal carRendal)
@@ -33,7 +34,7 @@ namespace CarRendalPay.Services
             }
 
             // calculando a taxa de imposto    
-            double tax = _brazilTaxService.Tax(basicPayment);
+            double tax = _taxService.Tax(basicPayment);
 
             // instaciando um valor que era nullo no inicio 
             carRendal.Invoice = new Invoice(basicPayment, tax);
